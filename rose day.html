@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Day Surprise 🌹</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Select the Date 🌹</h1>
+        <input type="date" id="datePicker">
+        <button onclick="checkDate()">Submit</button>
+        
+        <div class="rose-container hidden" onclick="openRose()">
+            <img id="roseImage" src="closedrose.png" alt="Closed Rose">
+        </div>
+        
+        <p class="hidden surprise">You make my world bloom with love and joy! Happy Rose Day !
+        </p>
+        <audio id="romanticMusic" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+    </div>
+    
+    <script>
+        function checkDate() {
+            const selectedDate = document.getElementById("datePicker").value;
+            const today = new Date();
+            const formattedDate = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2);
+            
+            if (selectedDate === formattedDate) {
+                document.querySelector(".rose-container").classList.remove("hidden");
+                document.getElementById("romanticMusic").play();
+            } else {
+                alert("Please select today's date (7 Feb) to continue!");
+            }
+        }
+
+        function openRose() {
+            let roseImage = document.getElementById("roseImage");
+            
+            // Change static image to an animated GIF
+            roseImage.src = "roses.gif";
+            roseImage.style.width = "150px"; // Increase GIF size
+
+            // Disable further clicks after opening
+            roseImage.onclick = null;
+
+            // Show the surprise note after a delay
+            setTimeout(() => {
+                document.querySelector(".surprise").classList.add("show");
+            }, 2500);  // Adjust based on GIF duration
+        }
+    </script>
+</body>
+</html>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+    .container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        width: 350px;
+    }
+    h1 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #d63384;
+    }
+    input[type="date"] {
+        padding: 8px;
+        border-radius: 6px;
+        border: 2px solid #ff7eb3;
+        font-size: 16px;
+        text-align: center;
+    }
+    button {
+        background: #ff4785;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+    button:hover {
+        background: #d63384;
+        transform: scale(1.05);
+    }
+    .rose-container {
+        cursor: pointer;
+        transition: transform 0.5s ease-in-out;
+        margin-top: 20px;
+    }
+    #roseImage {
+        width: 120px;
+        transition: transform 0.8s;
+    }
+    .hidden {
+        display: none;
+    }
+    .show {
+        display: block;
+        font-weight: bold;
+        font-size: 18px;
+        color: #d63384;
+        animation: fadeIn 2s ease-in-out;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        margin-top: 20px;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
